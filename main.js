@@ -29,8 +29,26 @@ Student.prototype.aprobarCurso = function (nuevoCurso) {
 };
 
 // creamos una instancia de nuestro prototipo
-const Frank = new Student(
-  "Frank",
-  21,
-  ["Code Adventure"]
-);
+const Frank = new Student("Frank", 21, ["Code Adventure"]);
+
+// Prototipos con la sintaxis de clases
+
+class StudentClass {
+  constructor({ name, age, cursosAprovados = [], email }) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+    this.cursosAprovados = cursosAprovados;
+  }
+
+  aprobarCurso(nuevoCurso) {
+    this.cursosAprovados.push(nuevoCurso);
+  }
+}
+
+// nueva instancia
+const jason = new StudentClass({
+  email: "jasongrace@gmail.com",
+  name: "jason",
+  age: 20,
+});
