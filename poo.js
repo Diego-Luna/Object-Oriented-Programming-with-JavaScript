@@ -9,7 +9,8 @@ function videoStop(id) {
   console.log("se pauso el video ");
 }
 
-export class MoonMakersClass {
+// export class MoonMakersClass {
+class MoonMakersClass {
   constructor({ name, videoID }) {
     this.name = name;
     this.videoID = videoID;
@@ -42,23 +43,22 @@ class Classes {
 }
 
 class Course {
-  // ES2020, campos privados en las clases.
-  #name;
-
-  constructor({ name, classes = [] }) {
-    this.#name = name;
+  constructor({ name, classes = [], isFree = false, lang = "spanish" }) {
+    this._name = name;
     this.classes = classes;
+    this.isFree = isFree;
+    this.lang = lang;
   }
 
   get name() {
-    return this.#name;
+    return this._name;
   }
 
-  set name(nuevoNombre) {
-    if (nuevoNombre === "no" || nuevoNombre === "") {
+  set name(nuevoNombrecito) {
+    if (nuevoNombrecito === "no") {
       console.error("Error");
     } else {
-      this.#name = nuevoNombre;
+      this._name = nuevoNombrecito;
     }
   }
 }
@@ -108,12 +108,18 @@ class LearningPath {
 
 const ConoceMoonMakers = new Course({
   name: "Conoce MoonMakers",
+  isFree: true,
+});
+const RocketMakerE1 = new Course({
+  name: "Rocket Maker E1",
+  isFree: false,
+  lang: "english",
 });
 
 const RocketMaker = new LearningPath({
   id: 1,
   name: "Rocket Maker",
-  courses: [ConoceMoonMakers, "Rocket Maker E1", "Rocket Maker E2"],
+  courses: [ConoceMoonMakers, RocketMakerE1, "Rocket Maker E2"],
 });
 const ProgrammingArduino = new LearningPath({
   id: 1,
@@ -127,7 +133,7 @@ class Student {
     email,
     username,
     twitter = undefined,
-    instagrm = undefined,
+    instagram = undefined,
     facebook = undefined,
     approvedCourses = [],
     learningPaths = [],
@@ -137,7 +143,7 @@ class Student {
     this.username = username;
     this.socialMedia = {
       twitter,
-      instagrm,
+      instagram,
       facebook,
     };
     this.approvedCourses = approvedCourses;
@@ -145,14 +151,52 @@ class Student {
   }
 }
 
-const Diego = new Student({
+class FreeStudent extends Student {
+  constructor(props) {
+    super(props);
+  }
+
+  approveCourse(newCourse) {
+    if (newCourse.isFree) {
+      this.approvedCourses.push(newCourse);
+    } else {
+      console.warn("Lo sentimos, " + this.name + ", solo puedes tomar cursos abiertos");
+    }
+  }
+}
+
+class BasicStudent extends Student {
+  constructor(props) {
+    super(props);
+  }
+
+  approveCourse(newCourse) {
+    if (newCourse.lang !== "english") {
+      this.approvedCourses.push(newCourse);
+    } else {
+      console.warn("Lo sentimos, " + this.name + ", no puedes tomar cursos en inglés");
+    }
+  }
+}
+
+class ExpertStudent extends Student {
+  constructor(props) {
+    super(props);
+  }
+
+  approveCourse(newCourse) {
+    this.approvedCourses.push(newCourse);
+  }
+}
+
+const Diego = new FreeStudent({
   name: "diego",
   username: "diegoFcoLuna",
   email: "diego@diego.com",
   instagram: "diegoFcoLuna",
 });
 
-const Annabeth = new Student({
+const Annabeth = new BasicStudent({
   name: "Annabeth",
   username: "Annabeth_chase",
   email: "annabeth@annabeth.com",
