@@ -1,14 +1,36 @@
+class Comments {
+  constructor({ user, comment }) {
+    this.user = user;
+    this.comment = comment;
+  }
+}
+
+class Classes {
+  constructor({ name, time, comentarios = [] }) {
+    this.name = name;
+    this.time = time;
+    this.comentarios = comentarios;
+  }
+}
+
+class Course {
+  constructor({ name, classes = [] }) {
+    this.name = name;
+    this.classes = classes;
+  }
+}
+
 class LearningPath {
   constructor({
     id,
-    logo,
+    logo = "",
     name,
     teachers = [],
     blogposts = [],
     glosary = [],
-    category,
-    description,
-    levels = [],
+    category = "",
+    description = "",
+    courses = [],
   }) {
     this.id = id;
     this.logo = logo;
@@ -18,15 +40,15 @@ class LearningPath {
     this.glosary = glosary;
     this.category = category;
     this.description = description;
-    this.levels = levels;
+    this.courses = courses;
   }
 
-  addCourse(level, nameCourse) {
-    if (!this.levels[level]) {
-      this.levels[level] = [];
-    }
-    this.levels[level].push(nameCourse);
-  }
+  // addCourse(course, nameCourse) {
+  //   if (!this.courses[course]) {
+  //     this.courses[course] = [];
+  //   }
+  //   this.courses[course].push(nameCourse);
+  // }
 
   addTeacher(teacher) {
     this.teachers.push(teacher);
@@ -40,6 +62,21 @@ class LearningPath {
     this.glosary.push(concept);
   }
 }
+
+const ConoceMoonMakers = new Course({
+  name: "Conoce MoonMakers",
+});
+
+const RocketMaker = new LearningPath({
+  id: 1,
+  name: "Rocket Maker",
+  courses: [ConoceMoonMakers, "Rocket Maker E1", "Rocket Maker E2"],
+});
+const ProgrammingArduino = new LearningPath({
+  id: 1,
+  name: "Programming Arduino",
+  courses: [ConoceMoonMakers, "Programa tu primer LED con Arduino"],
+});
 
 class Student {
   constructor({
