@@ -14,9 +14,26 @@ class Classes {
 }
 
 class Course {
+
+  // ES2020, campos privados en las clases.
+  #name;
+
+
   constructor({ name, classes = [] }) {
-    this.name = name;
+    this.#name = name;
     this.classes = classes;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  set name(nuevoNombre) {
+    if (nuevoNombre === "no" || nuevoNombre === "") {
+      console.error("Error");
+    } else {
+      this.#name = nuevoNombre;
+    }
   }
 }
 
