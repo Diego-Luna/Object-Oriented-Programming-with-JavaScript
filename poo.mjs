@@ -1,3 +1,31 @@
+// modulos en JS
+
+function videoPlay(id) {
+  const urlSecreta = "https://moonmakers_TopSecret.com/" + id;
+  console.log("se esta reproduciendo desde la URL ");
+}
+function videoStop(id) {
+  const urlSecreta = "https://moonmakers_TopSecret.com/" + id;
+  console.log("se pauso el video ");
+}
+
+export class MoonMakersClass {
+  constructor({ name, videoID }) {
+    this.name = name;
+    this.videoID = videoID;
+  }
+
+  reproducir() {
+    videoPlay(this.videoID);
+  }
+
+  pausar() {
+    videoStop(this.videoID);
+  }
+}
+
+// modulos en JS
+
 class Comments {
   constructor({ user, comment }) {
     this.user = user;
@@ -14,10 +42,8 @@ class Classes {
 }
 
 class Course {
-
   // ES2020, campos privados en las clases.
   #name;
-
 
   constructor({ name, classes = [] }) {
     this.#name = name;
